@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Vditor</title>
+    <script id="md" src="./md.js" defer></script>
+    <script>
+        window.enterPlace = "%~&形^埒^者&~%";
+    </script>
+    <link rel="stylesheet" href="./md.css" />
+    <style>
+        body {
+            height: 100vh;
+            margin: 0;
+            user-select:contain;
+        }
+        .header {
+            height: 30px;
+            margin-bottom: 50px;
+            border: 2px solid grey;
+        }
+        .wrapper {
+            margin: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <span>
+            <button id="save" onclick="data.value = vditor.getValue().replaceAll(/[\r\n]/gm, enterPlace).replaceAll(/[\f\t\v]/gm, '    ').replaceAll(/\s/gm, ' ');navigator.clipboard.writeText(data.value);">保存</button>
+            <button id="load" onclick="vditor.setValue(data.value.replaceAll(enterPlace, '\n'));">加载</button>
+            <input type="text" id="data">
+        </span>
+    </div>
+    <hr>
+    <div class="wrapper">
+        <div id="vditor"></div>
+    </div>
+    <script>
+        document.getElementById('md').onload = () => window.vditor = new Vditor('vditor', { height: document.body.computedStyleMap().get('height').value - 94, cache: { enable: false, }, value: '## 即时渲染（IR）\n即时渲染模式对熟悉 Typora 的用户应该不会感到陌生，理论上这是最优雅的 Markdown 编辑方式。', mode: 'ir' });
+    </script>
+</body>
+
+</html>
